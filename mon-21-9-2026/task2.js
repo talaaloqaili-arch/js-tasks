@@ -55,7 +55,7 @@ console.log(welcomeStr.toUpperCase());
 console.log(welcomeStr.split(" ")[1].toLocaleUpperCase());
 console.log(welcomeStr.replace("welcome to" ,"Hello from"));
 console.log(welcomeStr.toLocaleLowerCase());
-console.log(welcomeStr.length());
+console.log(welcomeStr.length);
 console.log(welcomeStr + "Jordan");
 //Replace all occurrences of the FIRST LETTER of a string with '*'
 function replaceRepeatedFirstLetter(str) {
@@ -92,19 +92,18 @@ vegetables.pop();
 //  Remove the first item from the fruit array
 fruit.shift();
 //  Find the index of "orange"
- const orangeIndex = fruit.indexOf("orange"); 
+ const orangeIndex = fruit.indexOf("orange");
 
 // Add that number to the end of the fruit array
-fruit.push(orangeIndex); // fruit = ["apple", "orange", "watermelon", 1]
- 
-// Find the length of the vegetable array
-const vegLength = vegetables.length; // 3
- 
-const orangeIndex=fruit.indexOf("orange");
-//  Add that number to the end of the vegetable array
-fruit.push(vegLength);
+fruit.push(orangeIndex);
 
+// Find the length of the vegetable array
+const vegLength = vegetables.length;
+
+// Add that number to the end of the vegetable array
+vegetables.push(vegLength);
 //  Remove 2 elements from "food" starting at index 4
+const food = ["pizza", "burger", "rice", "chicken", "salad", "pasta"];
 food.splice(4, 2); 
  
 // Reverse the array
