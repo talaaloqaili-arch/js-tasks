@@ -1,8 +1,3 @@
-
-// ==========================================
-// SECTION: BASIC TASKS (Easy Difficulty)
-// ==========================================
-
 // Exercise 1: Hoisting & Scoping Challenge
 console.log("--- Exercise 1 ---");
 console.log(nameVar); // Output: undefined due to var hoisting
@@ -105,12 +100,6 @@ console.log("Storage length:", localStorage.length);
 console.log("First key:", localStorage.key(0));
 localStorage.removeItem("theme");
 // localStorage.clear();
-
-
-
-// ==========================================
-// SECTION: MID TASKS (Medium Difficulty)
-// ==========================================
 
 // Exercise 2: Constructor Functions & Prototypal Inheritance
 console.log("--- Exercise 2 ---");
@@ -225,12 +214,6 @@ let tasksList = [
 localStorage.setItem("tasks", JSON.stringify(tasksList));
 let loadedTasks = JSON.parse(localStorage.getItem("tasks"));
 console.log("Loaded tasks from storage:", loadedTasks);
-
-
-
-// ==========================================
-// SECTION: ADVANCED TASKS (Advanced Difficulty)
-// ==========================================
 
 // Exercise 6: Product Inventory Analyzer
 console.log("--- Exercise 6 ---");
