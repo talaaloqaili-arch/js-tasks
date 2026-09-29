@@ -1,48 +1,40 @@
 let users = JSON.parse(localStorage.getItem("users")) || [];
-
-const adminExists = users.some(user => user.role === "admin");
+const adminExists = users.some(u => u.role === "admin");
+console.log("(users):", users);
+console.log(" (currentUser):", currentUser);
 if (!adminExists) {
   users.push({
+    name: "System Admin",
     email: "admin@gmail.com",
     password: "123",
-    name: "System Admin",
-    role: "admin"
+    role: "admin" 
   });
-  localStorage.setItem("users", JSON.stringify(users));
+  localStorage.setItem("users", JSON.stringify(users)); 
 }
 
-const signupBtn = document.querySelector('.sign-btn');
-const usernameInput = document.getElementById('user-name'); 
-const emailInput = document.getElementById('Email');
-const passwordInput = document.getElementById('password');
-const confirmPasswordInput = document.getElementById('conform-pass');
+const signupForm = document.querySelector('.form-sign-up');
+if (signupForm) {
+  signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-const loginBtn = document.getElementById('submit-btn'); 
-const loginEmailInput = document.getElementById('email');
-const loginPasswordInput = document.getElementById('password');
-
-if (signupBtn) {
-  signupBtn.addEventListener('click', (e) => {
-    e.preventDefault(); 
-
-    const username = usernameInput.value.trim();
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
-    const confirmPassword = confirmPasswordInput.value;
+    const username = document.getElementById('user-name').value.trim();
+    const email = document.getElementById('Email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('conform-pass').value;
 
     if (!username || !email || !password || !confirmPassword) {
-      alert('Please fill all fields');
+      alert("fill all frildل!");
       return;
     }
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match!');
+      alert("password dont matches!");
       return;
     }
 
-    const existingUser = users.find(u => u.email === email);
-    if (existingUser) {
-      alert("This email already exists!");
+    const userExists = users.some(u => u.email === email);
+    if (userExists) {
+      alert("  already have account ");
       return;
     }
 
@@ -50,55 +42,86 @@ if (signupBtn) {
       name: username,
       email: email,
       password: password,
-      role: "user"
+      role: "user" 
     };
 
     users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
-
-    alert('Your account has been created successfully!');
+    
+    localStorage.setItem("users", JSON.stringify(users)); 
+    console.log("done add newuser successfully", newUser);
+    console.log(" after add :", users);
+    alert("created acount succsesfuly");
     window.location.href = "login.html"; 
   });
 }
 
 
+
+const loginBtn = document.getElementById('submit-btn');
 if (loginBtn) {
   loginBtn.addEventListener('click', (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
-    const email = loginEmailInput.value.trim();
-    const password = loginPasswordInput.value;
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
 
     if (!email || !password) {
-      alert('Please fill all fields');
+      alert("enter your email and password");
       return;
     }
 
     const foundUser = users.find(u => u.email === email && u.password === password);
 
     if (foundUser) {
-      alert("Logged in successfully!");
-      localStorage.setItem("currentUser", JSON.stringify(foundUser));
+        console.log("user founded and login :", foundUser);
+        localStorage.setItem("currentUser", JSON.stringify(foundUser));     
 
-      // التوجيه حسب الصلاحية
       if (foundUser.role === "admin") {
         window.location.href = "admin-dashboard.html";
       } else {
-        window.location.href = "dashboard.html";
+        window.location.href = "dashboard.html"; 
       }
     } else {
-      alert("Your email or password is not correct!");
+      alert("incorrect email");
     }
   });
 }
 
-// 6. عرض معلومات المستخدم (يُنفذ فقط داخل صفحة الـ Dashboard عند وجود عنصر userInfo)
-const userInfoElement = document.getElementById("userInfo");
-if (userInfoElement) {
+
+const userDashboard = document.getElementById("user-dashboard");
+if (userDashboard) {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
   if (!currentUser) {
     window.location.href = "login.html";
   } else {
-    userInfoElement.textContent = `Hello ${currentUser.name} (${currentUser.email})`;
+    document.getElementById("user-info").innerHTML = `
+      <h3>Welcome, ${currentUser.name}!</h3>
+      <p>Email: ${currentUser.email}</p>
+      <p>Role: ${currentUser.role}</p>
+    `;
   }
+}
+
+
+const adminDashboard = document.getElementById("admin-dashboard");
+if (adminDashboard) {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  
+  if (!currentUser || currentUser.role !== "admin") {
+    alert("dont allow accsess to the admin page");
+    window.location.href = "login.html";
+  } else {
+    const usersListElement = document.getElementById("all-users-list");
+    usersListElement.innerHTML = users.map(u => `
+      <li>
+        <strong>${u.name}</strong> (${u.email}) - Role: <span>${u.role}</span>
+      </li>
+    `).join("");
+  }
+}
+function logout() {
+  localStorage.removeItem("currentUser");
+  window.location.href = "login.html";
 }
