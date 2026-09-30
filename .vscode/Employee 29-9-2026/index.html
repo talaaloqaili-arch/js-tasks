@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Employee Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+    <h1>Employee Management System</h1>
+
+    <form id="employee-form" class="card">
+      <label>Name
+        <input type="text" id="name" required>
+      </label>
+      <label>Email
+        <input type="email" id="email" required>
+      </label>
+      <label>Department
+        <input type="text" id="department" required>
+      </label>
+      <button type="submit">Add employee</button>
+    </form>
+
+    <section class="card">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Employee Name</th>
+              <th>Email</th>
+              <th>Department</th>
+              <th>Salary</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3">Total salary</td>
+              <td id="total">0</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <p id="empty" class="empty">No employees yet. Add one using the form above.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
